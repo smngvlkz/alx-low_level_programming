@@ -1,22 +1,25 @@
-#include <stdio.h>
-/**
- *You should produce the exact same output as in the example
- *Warnings are allowed
- *
- *return: Always 0 (Success)
- */
-int main(void)
-{
-	char c;
-	int i;
-	long int li;
-	long long lli;
-	float f;
+#include <stdio>
 
-	printf("size of a char: %ld byte(s)\n", sizeof(c));
-	printf("size of an int: %ld bytes(s)\n", sizeof(i));
-	printf("size of a long int: %ld bytes(s)\n", sizeof(li));
-	printf("size of a long long int: %ld bytes(s)\n", sizeof(lli));
-        printf("size of float is %ld byte(s).\n", sizeof(f));
+/**
+* main - print the string in the put function
+*
+* Description: using the main function
+* this program prints "Programming is like building a multilingual puzzle
+* Return: 0
+*/
+int main(void)
+{   
+        char c;
+        int i;
+        long li;
+        long long lli;
+        float f;
+
+        printf("Size of char: %ld byte(s)\n", sizeof(char));
+        printf("Size of short: %ld byte(s)\n", sizeof(short));
+        printf("Size of int: %ld byte(s)\n", sizeof(int));
+        printf("Size of long: %ld byte(s)\n", sizeof(long));
+        printf("Size of long long: %ld byte(s)\n", sizeof(long long));
+        printf("Size of float: %ld byte(s)\n", sizeof(float));
         return (0);
 }
