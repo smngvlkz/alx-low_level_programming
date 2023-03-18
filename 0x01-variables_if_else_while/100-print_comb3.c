@@ -10,18 +10,21 @@ int main(void)
 	int n;
 	int m;
 
-	for (n = 48; n <= 56; n++)
+	for (n = 0; n < 10; n++)
 	{
-		for (m = 49; m < 56; m++)
+		for (n = m; m < 10; m++)
+		{
+			if (n < m && n != m)
 			{
-				putchar(n);
-				putchar(m);
-				if (n != 56 || m != 57)
+				putchar(n + '0');
+				putchar(m + '0');
+				if (n + m != 17)
 				{
-				putchar(',');
-				putchar(' ');
+					putchar(',');
+					putchar(' ');
 				}
 			}
+		}
 	}
 	putchar('\n');
 	return (0);
