@@ -9,15 +9,20 @@
 
 int is_palindrome(char *s)
 {
-	int len = 0, i;
+	int len = 0, i = 0;
 
 	while (*(s + len))
 		len++;
 
-	for (i = 0; i < len / 2; i++)
+	if (len <= 1)
+		return (1);
+
+	while (i < len / 2)
 	{
 		if (*(s + i) != *(s + len - i - 1))
 			return (0);
+		i++;
 	}
+
 	return (1);
 }
