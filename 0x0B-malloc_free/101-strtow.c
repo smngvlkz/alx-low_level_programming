@@ -1,70 +1,78 @@
 #include "main.h"
 #include <stdlib.h>
 
+
 /**
- * count_words - Counts the number of words in string
- * @str: string input
+ * count_word - helper function to count the number of words in a string
+ * @s: string to evaluate
  *
- * Return: Number of words in a string
+ * Return: number of words
  */
 
-int count_words(char *str)
+int count_word(char *s)
 {
-	int i, count = 0;
+	int len, i, r;
 
-	for (i = 0; str[i] != '\0'; i++)
+	len = 0;
+	r = 0;
+
+	for (i = 0; s[i] != '\0'; i++)
 	{
-		if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
-			count++;
+		if (s[i] == ' ')
+			len = 0;
+		else if (len == 0)
+		{
+			len = 1;
+			r++;
+		}
 	}
 
-	return (count);
+	return (r);
 }
 
 /**
  * strtow - splits a string into words
- * @str: string input
+ * @str: string to split
  *
- * Return: pointer to an array of strings
+ * Return: pointer to an array of strings (Success)
  */
 
 char **strtow(char *str)
 {
-	int i, r, n, len, words;
-	char **equals;
+	char **equals, *results;
+	int i, n = 0, count = 0, words, b = 0, start, end;
 
-	if (str == NULL || *str == '\0')
+	while (*(str + count))
+		count++;
+	words = count_word(str);
+	if (words == 0)
 		return (NULL);
-
-	words = count_words(str);
 	equals = malloc(sizeof(char *) * (words + 1));
 	if (equals == NULL)
 		return (NULL);
 
-	for (i = 0; i < words; i++)
+	for (i = 0; i <= count; i++)
 	{
-		while (*str == ' ')
-			str++;
-
-		len = 0;
-		while (*(str + len) != ' ' && *(str + len) != '\0')
-			len++;
-
-		equals[i] = malloc(sizeof(char) * (len + 1));
-		if (equals[i] == NULL)
+		if (str[i] == ' ' || str[i] == '\0')
 		{
-			for (n = 0; n < i; n++)
-				free(equals[n]);
-			free(equals);
-			return (NULL);
+			if (b)
+			{
+				end = i;
+				results = malloc(sizeof(char) * (b + 1));
+				if (results == NULL)
+					return (NULL);
+				while (start < end)
+					*results = str[start++];
+				*results = '\0';
+				equals[n] = results - b;
+				n++;
+				b = 0;
+			}
 		}
-
-		for (n = 0; n < len; n++)
-			equals[i][n] = *(str++);
-		equals[i][n] = '\0';
-		r++;
+		else if (b++ == 0)
+			start = i;
 	}
+	equals[b] = NULL;
 
-	equals[r] = NULL;
 	return (equals);
 }
