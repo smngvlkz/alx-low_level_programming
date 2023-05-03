@@ -13,26 +13,32 @@ size_t print_listint_safe(const listint_t *head)
 {
 	size_t check = 0;
 	const listint_t *start = head;
-	const listint_t *last;
+	const listint_t **address_array;
+	size_t i;
+
+	address_array = malloc(sizeof(listint_t *) * 1024);
+	if (address_array == NULL)
+		exit(98);
 
 	while (start != NULL)
 	{
-		printf("[%p] %d\n", (void *)start, start->n);
-		start = start->next;
-		check++;
-
-		last = head;
-		while (last != start)
+		for (i = 0; i < check; i++)
 		{
-			if (last == start->next)
+			if (address_array[i] == start)
 			{
-				printf("-> [%p] %d\n", (void *)start->next, start->next->n);
+				printf("-> [%p] %d\n", (void *)start, start->n);
+				free(address_array);
 				return (check);
 			}
-			last = last->next;
 		}
+
+		printf("[%p] %d\n", (void *)start, start->n);
+		address_array[check] = start;
+		start = start->next;
+		check++;
 	}
 
+	free(address_array);
 	return (check);
 }
 
