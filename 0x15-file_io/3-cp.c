@@ -25,7 +25,7 @@ void check_arguments(int argc)
  * @i_from: pointer to input file descriptor
  * @i_to: pointer to output file descriptor
  */
-void open_files(char *argv[], int *i_from, int i_to)
+void open_files(char *argv[], int *i_from, int *i_to)
 {
 	mode_t mode;
 
