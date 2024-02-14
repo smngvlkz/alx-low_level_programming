@@ -88,7 +88,10 @@ int main(int argc, char **argv)
 	printf("\n");
 	printf("  ABI Version:                       %d\n", header.e_ident[EI_ABIVERSION]);
 	printf("  Type:                              ");
+	printf("%s\n", header.e_type == ET_EXEC ? "EXEC (Executable file)" : "DYN (Shared object file)");
+	printf("  Entry point address:               0x%lx\n", header.e_entry);
 
 	close(r);
 	return (0);
 }
+
