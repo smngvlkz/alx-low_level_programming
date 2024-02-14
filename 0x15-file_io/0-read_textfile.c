@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 /**
  * read_textfile - reads a text file and prints it to to the POSIX stanard output
@@ -13,26 +15,39 @@
  */
 size_t read_textfile(const char *filename, size_t letters)
 {
-	int i;
-	size_t r_read, w_written;
-	char *check;
+	int file_i;
+	ssize_t n, r;
+	char *buffer;
 
-	if (filename == NULL)
+	if (filename == NULL) {
 		return (0);
+	}
 
-	i = open(filename, O_RDONLY);
-	if (i == -1)
+	file_i = open(filename, O_RDONLY);
+
+	if (file_i == -1) {
 		return (0);
+	}
 
-	r_read = read(i, check, letters);
-	if (r_read == -1)
+	buffer = malloc(sizeof(char) * letters);
+	if (buffer == NULL) {
+		close(file_i);
 		return (0);
+	}
 
-	w_written = write(STDOUT_FILENO, check, r_read);
-	if (w_written == -1 || w_written != r_read)
+	n = readfile(file_i, buffer, letters);
+	close(file_i);
+
+	if (n == -1) {
+		free(buffer);
 		return (0);
+	}
 
-	close(i);
-	free(check);
-	return (w_written);
+	r = write(STDOUT_FILENO, buffer, n);
+	free(buffer);
+
+	if (n != r) {
+		return (0);
+	}
+	return (n);
 }
