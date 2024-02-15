@@ -1,3 +1,4 @@
+#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -15,7 +16,7 @@ void print_version(unsigned char *e_ident);
 void print_abi(unsigned char *e_ident);
 void print_osabi(unsigned char *e_ident);
 void print_type(unsigned int e_type, unsigned char *e_ident);
-void print_entry(unsigned long int e_entity, unsigned char *e_ident);
+void print_entry(unsigned long int e_entity);
 void close_elf(int elf);
 
 /**
@@ -81,7 +82,7 @@ void print_class(unsigned char *e_ident)
 			printf("ELF64\n");
 			break;
 		default:
-			printf("<unknown: %x>\n", e_ident(EI_CLASS));
+			printf("<unknown: %x>\n", e_ident[EI_CLASS]);
 	}
 }
 /**
@@ -217,7 +218,7 @@ void print_type(unsigned int e_type, unsigned char *e_ident)
  * print_entry - Prints the ELF entry point.
  * @e_entry: ELF entry point
  */
-void print_entry(unsigned long int e_entry, unsigned char *e_ident)
+void print_entry(unsigned long int e_entry)
 {
 	printf("  Entry point address:               0x%lx\n", e_entry);
 }
