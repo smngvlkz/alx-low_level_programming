@@ -28,6 +28,7 @@ This repository contains projects for training in several low-level programming 
 - `0x17-doubly_linked_lists`: Doubly linked lists in C.
 - `0x18-dynamic_libraries`: Dynamic libraries in C.
 - `0x1A-hash_tables`: Hash tables in C.
+
 **And more...**
 
 ## Usage
